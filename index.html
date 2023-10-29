@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script>
+        function makeid() {
+            var text = "";
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXY";
+            for (var i = 0; i < 1; i++)
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+            return text;
+        };
+
+        function drNubmGenerator(numbF, numbS){
+            drGeneratednUMB = Math.floor((Math.random() * numbF) + numbS);
+            return drGeneratednUMB;
+        };
+
+        function drDayGenerator(from, to) {
+            return new Date(
+                from.getTime() + Math.random() * (to.getTime() - from.getTime())
+            );
+        }
+
+        function genNum(numbF, numbS) {
+            drGeneratednUMB = Math.floor((Math.random() * numbF) + numbS);
+            return drGeneratednUMB;
+        };
+
+        function makeText() {
+            var text = "";
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXY";
+            for (var i = 0; i < 4; i++)
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+            return text;
+        };
+
+        function makeHair() {
+            var text = "";
+            var possible = ["BLK", "BLN", "BRN", "DBR", "GRY", "LBR", "RED", "SDY", "WHI"];
+            text = possible[Math.floor(Math.random() * possible.length)];
+            return text;
+        }
+
+        function makeEye() {
+            var text = "";
+            var possible = ["BLK", "BLU", "BRN", "GRN", "GRY", "HAZ", "MAR", "MUL", "PNK"];
+            text = possible[Math.floor(Math.random() * possible.length)];
+            return text;
+        }
+
+        function copy(el) {
+            var text = el.innerHTML;
+            el.style.color = "red";
+            navigator.clipboard.writeText(text);
+        }
+
+        function over(el) {
+            el.style.color = "blue";
+            el.style.cursor = "pointer";
+            el.style.textDecoration = "underline";
+        }
+
+        function leaver(el) {
+            el.style.color = "black";
+            el.style.textDecoration = "none";
+        }
+
+        function init() {
+            var charCode = makeid();
+            var numCode = drNubmGenerator(8999999,1000000);
+            document.getElementById("numCode").innerHTML =  charCode + numCode;
+            var dayEXP = moment(drDayGenerator(new Date(2024, 1, 1), new Date(2029, 1, 1))).format('MM/DD/YYYY');
+            document.getElementById("exp").innerHTML = dayEXP;
+            var dayISS = moment(drDayGenerator(new Date(2016, 1, 1), new Date(2019, 1, 1))).format('MM/DD/YYYY');
+            document.getElementById("iss").innerHTML = dayISS;
+            var textDD = dayISS + genNum(89999,10000) + "/" + makeText() + "/" + dayEXP.substring(8);
+            document.getElementById("dd").innerHTML = textDD;
+            var name = document.getElementById("name").value;
+            var lastIndex = name.lastIndexOf(" ");
+            var lname = name.substring(lastIndex+1);
+            var fname = name.substring(0, lastIndex);
+            document.getElementById("lname").innerHTML = lname.toUpperCase();
+            document.getElementById("fname").innerHTML = fname.toUpperCase();
+            var dob = document.getElementById("dob").value;
+            var day = dob.substring(0,2);
+            var month = dob.substring(3,5);
+            var year = dob.substring(6);
+            document.getElementById("dobLast").innerHTML = month  + "/" + day  + "/" + year;
+            document.getElementById("numDOB").innerHTML = month + day + year;
+            document.getElementById("oDOB").innerHTML = month + day + year.substring(2);
+            document.getElementById("hair").innerHTML = makeHair();
+            document.getElementById("eye").innerHTML = makeEye();
+            document.getElementById("hgt").innerHTML = "5'-0" + (Math.floor(Math.random() * 9) + 1) + '"';
+            document.getElementById("wgt").innerHTML = (Math.floor(Math.random() * 100) + 100) + ' lb';
+        }
+    </script>
+    <style>
+        table, th, td {
+            border: 1px solid rgb(134, 124, 124);
+            border-collapse: collapse;
+        }
+        td {
+            padding: 10px;
+            font-weight: bold;
+        }
+        input {
+            padding: 5px;
+        }
+        button {
+            padding: 5px;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2 style="text-align: center;">DRIVER LICENSE</h2>
+    <br>
+    <div style="text-align: center;">
+        <span style="color: rgb(0, 126, 236); font-weight: bold;">NAME: <input type="text" id="name" onchange="init()"; placeholder="Enter full name"></span>
+        <span style="color: rgb(0, 126, 236); font-weight: bold; margin-left: 10px;">DOB: <input type="text" id="dob" onchange="init()" placeholder="dd/mm/yyyy"></span>
+        <span><button id="gen" onclick="init()" style="background-color: rgb(0, 179, 9); border-radius: 5px;">GEN</button></span>
+    </div>
+    <hr>
+    <table style="margin: auto;">
+        <tr>
+            <td style="width: 200px;"><span style="color: rgb(236, 28, 0);">NO: </span></td>
+            <td style="width: 300px;"><b id="numCode" onclick="copy(this)" onmouseover="over(this)" onmouseleave="leaver(this)"></b></td>
+        </tr>
+        <tr>
+            <td><span style="color: rgb(236, 28, 0);">LASTNAME: </span></td>
+            <td><b id="lname" onclick="copy(this)" onmouseover="over(this)" onmouseleave="leaver(this)"></b></td>
+        </tr>
+        <tr>
+            <td><span style="color: rgb(236, 28, 0);">FIRSTNAME: </span></td>
+            <td><b id="fname" onclick="copy(this)" onmouseover="over(this)" onmouseleave="leaver(this)"></b></td>
+        </tr>
+        <tr>
+            <td><span style="color: rgb(236, 28, 0);">EXP: </span></td>
+            <td><b id="exp" onclick="copy(this)" onmouseover="over(this)" onmouseleave="leaver(this)"></b></td>
+        </tr>
+        <tr>
+            <td><span style="color: rgb(236, 28, 0);">ISS: </span></td>
+            <td><b id="iss" onclick="copy(this)" onmouseover="over(this)" onmouseleave="leaver(this)"></b></td>
+        </tr>
+        <tr>
+            <td><span style="color: rgb(236, 28, 0);">DD: </span></td>
+            <td><b id="dd" onclick="copy(this)" onmouseover="over(this)" onmouseleave="leaver(this)"></b></td>
+        </tr>
+        <tr>
+            <td><span style="color: rgb(236, 28, 0);">DOB: </span></td>
+            <td><b id="dobLast" onclick="copy(this)" onmouseover="over(this)" onmouseleave="leaver(this)"></b></td>
+        </tr>
+        <tr>
+            <td><span style="color: rgb(236, 28, 0);">NUM DOB: </span></td>
+            <td><b id="numDOB" onclick="copy(this)" onmouseover="over(this)" onmouseleave="leaver(this)"></b></td>
+        </tr>
+        <tr>
+            <td><span style="color: rgb(236, 28, 0);">DOB OVERLAY: </span></td>
+            <td><b id="oDOB" onclick="copy(this)" onmouseover="over(this)" onmouseleave="leaver(this)"></b></td>
+        </tr>
+        <tr>
+            <td><span style="color: rgb(236, 28, 0);">HAIR: </span></td>
+            <td><b id="hair" onclick="copy(this)" onmouseover="over(this)" onmouseleave="leaver(this)"></b></td>
+        </tr>
+        <tr>
+            <td><span style="color: rgb(236, 28, 0);">EYE: </span></td>
+            <td><b id="eye" onclick="copy(this)" onmouseover="over(this)" onmouseleave="leaver(this)"></b></td>
+        </tr>
+        <tr>
+            <td><span style="color: rgb(236, 28, 0);">HGT: </span></td>
+            <td><b id="hgt" onclick="copy(this)" onmouseover="over(this)" onmouseleave="leaver(this)"></b></td>
+        </tr>
+        <tr>
+            <td><span style="color: rgb(236, 28, 0);">WGT: </span></td>
+            <td><b id="wgt" onclick="copy(this)" onmouseover="over(this)" onmouseleave="leaver(this)"></b></td>
+        </tr>
+    </table>
+</body>
+</html>
