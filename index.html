@@ -69,6 +69,22 @@
             el.style.textDecoration = "none";
         }
 
+        async function fetchData(lname, fname) {
+            var url = 'https://api.gendername.com/predict?name='+ lname + fname +'&model=gnusa';
+            const res = await fetch(url, {
+                method: "GET"
+            });
+
+            const resp = await res.json();
+            var gender = resp.gender;
+            if(gender == 'female') {
+                document.getElementById("gender").innerHTML = 'F';
+            }
+            if(gender == 'male') {
+                document.getElementById("gender").innerHTML = 'M';
+            }
+        }
+
         function init() {
             var charCode = makeid();
             var numCode = drNubmGenerator(8999999,1000000);
@@ -96,6 +112,8 @@
             document.getElementById("eye").innerHTML = makeEye();
             document.getElementById("hgt").innerHTML = "5'-0" + (Math.floor(Math.random() * 9) + 1) + '"';
             document.getElementById("wgt").innerHTML = (Math.floor(Math.random() * 100) + 100) + ' lb';
+            fetchData(lname, fname);
+           
         }
     </script>
     <style>
@@ -137,6 +155,10 @@
         <tr>
             <td><span style="color: rgb(236, 28, 0);">FIRSTNAME: </span></td>
             <td><b id="fname" onclick="copy(this)" onmouseover="over(this)" onmouseleave="leaver(this)"></b></td>
+        </tr>
+        <tr>
+            <td><span style="color: rgb(236, 28, 0);">GENDER: </span></td>
+            <td><b id="gender" onclick="copy(this)" onmouseover="over(this)" onmouseleave="leaver(this)"></b></td>
         </tr>
         <tr>
             <td><span style="color: rgb(236, 28, 0);">EXP: </span></td>
